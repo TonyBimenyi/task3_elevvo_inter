@@ -1,4 +1,13 @@
 /* General */
+
+:root{
+    --primary-color: #fca311;
+    --secondary-color: #1c2333;
+    --background-color: #121826;
+    --card-background: #1e2538;
+    --text-color: #ffffff;
+    --error-color: #ff6b6b;
+}
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -137,4 +146,34 @@ body {
     border-radius: 16px;
     font-style: italic;
   }
+
+
+  .container{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+    background-color: var(--background-color);
+    gap: 40px;
+  }
+  .search_{
+    width: 70%;
+  }
   
+  .city_details{
+    width: 30%;
+    margin: 80px 60px 0px 60px;
+  }
+  .city_name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    border-bottom: 1px solid var(--text-color);
+        
+  }
+  .table{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--text-color);
+  }

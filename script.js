@@ -1,25 +1,43 @@
-const apiKey = 'e40252c787074202f9d8948cd83f1bd8'; // Replace with your OpenWeatherMap API key
+const apiKey = 'e40252c787074202f9d8948cd83f1bd8';
 const weatherContainer = document.getElementById('weatherContainer');
 const cityInput = document.getElementById('cityInput');
 const addCityBtn = document.getElementById('addCity');
 
-// Function to create a city card
-function createCityCard(city) {
-    const card = document.createElement('div');
-    card.classList.add('city-card');
-    card.innerHTML = `
-        <h2>${city}</h2>
-        <div class="current-weather"></div>
-        <div class="forecast"></div>
-        <div class="error"></div>
-    `;
-    weatherContainer.appendChild(card);
-    fetchWeather(city, card);
-    return card;
-}
-console.log(apiKey);
+// Function to update right-hand panel
+function updateCityDetails(city, currentData, forecastData) {
+    const cityNameElem = document.querySelector('.city_details .city_name .meteo h1');
+    const chanceRainElem = document.querySelector('.city_details .city_name .meteo p');
+    const tempElem = document.querySelector('.city_details .city_name .meteo h1:nth-of-type(2)');
+    const forecastContainer = document.querySelector('.forecast_details .fore_name .meteo');
 
-// Function to fetch weather data
+    cityNameElem.textContent = city;
+    chanceRainElem.textContent = `Chance to rain: ${Math.round(currentData.pop ? currentData.pop * 100 : 0)}%`;
+    tempElem.textContent = `${Math.round(currentData.main.temp)}°C`;
+
+    // Clear old forecast tables
+    forecastContainer.querySelectorAll('.table').forEach(e => e.remove());
+
+    // 3-day forecast
+    const forecastList = forecastData.list.filter(item => item.dt_txt.includes('12:00:00')).slice(0, 3);
+    forecastList.forEach(day => {
+        const date = new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        const table = document.createElement('div');
+        table.classList.add('table');
+        table.innerHTML = `
+            <div class="days"><p>${date}</p></div>
+            <div class="gen">
+                <p>
+                    <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
+                    <span>${day.weather[0].description}</span>
+                </p>
+            </div>
+            <div class="degrees"><p>${Math.round(day.main.temp)}°C</p></div>
+        `;
+        forecastContainer.appendChild(table);
+    });
+}
+
+// Fetch weather data
 async function fetchWeather(city, card) {
     const loading = document.createElement('div');
     loading.classList.add('loading');
@@ -30,16 +48,16 @@ async function fetchWeather(city, card) {
     errorElem.textContent = '';
 
     try {
-        // Fetch current weather
+        // Current weather
         const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
         if (!currentRes.ok) throw new Error('City not found');
         const currentData = await currentRes.json();
 
-        // Fetch forecast
+        // Forecast
         const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`);
         const forecastData = await forecastRes.json();
 
-        // Display current weather
+        // Display current weather on card
         const currentElem = card.querySelector('.current-weather');
         currentElem.innerHTML = `
             <img src="http://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png" alt="${currentData.weather[0].description}">
@@ -47,7 +65,7 @@ async function fetchWeather(city, card) {
             <p>${currentData.weather[0].description}</p>
         `;
 
-        // Process 3-day forecast (next 3 days at 12:00)
+        // Display forecast on card
         const forecastList = forecastData.list.filter(item => item.dt_txt.includes('12:00:00')).slice(0, 3);
         const forecastElem = card.querySelector('.forecast');
         forecastElem.innerHTML = '';
@@ -61,11 +79,40 @@ async function fetchWeather(city, card) {
                 </div>
             `;
         });
+
+        return { currentData, forecastData };
+
     } catch (error) {
         errorElem.textContent = error.message;
+        return {};
     } finally {
         card.removeChild(loading);
     }
+}
+
+// Create city card
+function createCityCard(city) {
+    const card = document.createElement('div');
+    card.classList.add('city-card');
+    card.innerHTML = `
+        <h2>${city}</h2>
+        <div class="current-weather"></div>
+        <div class="forecast"></div>
+        <div class="error"></div>
+    `;
+    weatherContainer.appendChild(card);
+
+    fetchWeather(city, card).then(({ currentData, forecastData }) => {
+        updateCityDetails(city, currentData, forecastData);
+    });
+
+    // Update right panel on click
+    card.addEventListener('click', async () => {
+        const { currentData, forecastData } = await fetchWeather(city, card);
+        updateCityDetails(city, currentData, forecastData);
+    });
+
+    return card;
 }
 
 // Event listener for adding city
@@ -77,7 +124,7 @@ addCityBtn.addEventListener('click', () => {
     }
 });
 
-// Bonus: Auto-fetch user's current location on load
+// Auto-fetch user location on load
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
@@ -87,20 +134,15 @@ if (navigator.geolocation) {
         weatherContainer.appendChild(loading);
 
         try {
-            // Fetch current weather by lat/lon
             const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`);
             const currentData = await currentRes.json();
             const city = currentData.name || 'Your Location';
 
-            // Create card for current location
             createCityCard(city);
         } catch (error) {
             console.error('Error fetching location weather:', error);
         } finally {
             weatherContainer.removeChild(loading);
         }
-    }, (error) => {
-        console.error('Geolocation error:', error);
-        // Ignore if denied
-    });
+    }, (error) => console.error('Geolocation error:', error));
 }

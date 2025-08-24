@@ -23,15 +23,43 @@
 
     <!-- Main content -->
     <main class="main-content">
-      <!-- Search -->
-      <div class="search-bar">
-        <input id="cityInput" placeholder="Search city...">
-        <button id="addCity">+</button>
-      </div>
+      <div class="container">
+        <div class="search_">
+          <!-- Search -->
+          <div class="search-bar">
+            <input id="cityInput" placeholder="Search city...">
+            <button id="addCity">+</button>
+          </div>
+          <p>CITIES</p>
 
-      <!-- Weather container -->
-      <div id="weatherContainer" class="weather-container">
-        <!-- Cards will be injected here by JS -->
+          <!-- Weather container -->
+          <div id="weatherContainer" class="weather-container">
+            <!-- Cards will be injected here by JS -->
+          </div>
+        </div>
+
+        <!-- Right panel -->
+        <div class="city_details">
+          <div class="city_name">
+            <div class="meteo">
+              <h1>Bujumbura</h1>
+              <p>Chance to rain: 0%</p>
+              <h1>33°C</h1>
+            </div>
+            <div class="image">
+              <h1>Image</h1>
+            </div>
+          </div>
+
+          <div class="forecast_details">
+            <div class="fore_name">
+              <div class="meteo">
+                <p>3-DAY FORECAST</p>
+                <!-- Forecast tables injected here -->
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
