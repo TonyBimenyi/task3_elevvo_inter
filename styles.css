@@ -177,3 +177,34 @@ body {
     align-items: center;
     border-bottom: 1px solid var(--text-color);
   }
+  .today_forecast{
+    margin-top: 50px;
+  }
+  .today_forecast .table_hour{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+  }
+  .today_forecast .table_hour .hour1,  .hour2{
+    border-right: 1px solid var(--text-color);
+    padding-right: 50px;
+  }
+  .sugested_cities{
+    margin-top: 50px;
+  }
+  .cities{
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 20px;
+    align-items: center;  
+    text-align: center;
+  }
+  .city1{
+    background-color: #1E2538;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  

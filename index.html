@@ -33,8 +33,12 @@
           <p>CITIES</p>
 
           <!-- Weather container -->
-          <div id="weatherContainer" class="weather-container">
-            <!-- Cards will be injected here by JS -->
+          <div id="weatherContainer" class="weather-container"></div>
+
+          <!-- Suggested cities -->
+          <div class="sugested_cities">
+            <p>SUGGESTED CITIES</p>
+            <div class="cities" id="suggestedCities"></div>
           </div>
         </div>
 
@@ -47,7 +51,7 @@
               <h1>33°C</h1>
             </div>
             <div class="image">
-              <h1>Image</h1>
+              <h1 id="currentIcon">☀️</h1>
             </div>
           </div>
 
@@ -56,6 +60,14 @@
               <div class="meteo">
                 <p>3-DAY FORECAST</p>
                 <!-- Forecast tables injected here -->
+              </div>
+            </div>
+            <div class="today_forecast">
+              <div class="meteo">
+                <p>TODAY'S FORECAST</p>
+                <div class="table_hour" id="hourlyForecast">
+                  <!-- Hourly forecast injected here -->
+                </div>
               </div>
             </div>
           </div>
