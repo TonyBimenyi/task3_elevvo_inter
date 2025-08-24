@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">☁️</div>
+      <nav>
+        <ul>
+          <li class="active">🌬️</li>
+          <li>🌤️</li>
+          <li>🗺️</li>
+          <li>⚙️</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <!-- Search -->
+      <div class="search-bar">
+        <input id="cityInput" placeholder="Search city...">
+        <button id="addCity">+</button>
+      </div>
+
+      <!-- Weather container -->
+      <div id="weatherContainer" class="weather-container">
+        <!-- Cards will be injected here by JS -->
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
