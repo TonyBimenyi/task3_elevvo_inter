@@ -1,4 +1,4 @@
-const apiKey = 'YOUR_API_KEY_HERE'; // Replace with your OpenWeatherMap API key
+const apiKey = 'e40252c787074202f9d8948cd83f1bd8'; // Replace with your OpenWeatherMap API key
 const weatherContainer = document.getElementById('weatherContainer');
 const cityInput = document.getElementById('cityInput');
 const addCityBtn = document.getElementById('addCity');
@@ -17,6 +17,7 @@ function createCityCard(city) {
     fetchWeather(city, card);
     return card;
 }
+console.log(apiKey);
 
 // Function to fetch weather data
 async function fetchWeather(city, card) {
