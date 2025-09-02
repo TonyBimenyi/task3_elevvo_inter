@@ -150,6 +150,13 @@ body {
     font-style: italic;
   }
 
+  .city_details .city_name h1{
+    text-transform: capitalize;
+  }
+  .weatherContainer h2{
+    text-transform: capitalize;
+  }
+
 
   .container{
     display: flex;

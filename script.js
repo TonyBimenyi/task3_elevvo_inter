@@ -21,14 +21,17 @@ function pickRandomCities(list, count) {
 // Update right-hand panel
 function updateCityDetails(city, currentData, forecastData) {
     const cityNameElem = document.querySelector('.city_details .city_name .meteo h1');
-    const chanceRainElem = document.querySelector('.city_details .city_name .meteo p');
+    const messageElem = document.querySelector('.city_details .city_name .meteo p'); // renamed for clarity
     const tempElem = document.querySelector('.city_details .city_name .meteo h1:nth-of-type(2)');
     const currentIcon = document.getElementById('currentIcon');
     const forecastContainer = document.querySelector('.forecast_details .fore_name .meteo');
     const hourlyContainer = document.getElementById('hourlyForecast');
 
     cityNameElem.textContent = city;
-    chanceRainElem.textContent = `Chance to rain: ${Math.round(currentData.pop ? currentData.pop * 100 : 0)}%`;
+
+    // ✅ Show weather description instead of rain %
+    messageElem.textContent = currentData.weather[0].description;
+
     tempElem.textContent = `${Math.round(currentData.main.temp)}°C`;
     currentIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png" alt="${currentData.weather[0].description}">`;
 
@@ -40,7 +43,7 @@ function updateCityDetails(city, currentData, forecastData) {
         const table = document.createElement('div');
         table.classList.add('table');
         table.innerHTML = `
-            <div class="days"><p>${date} </p></div>
+            <div class="days"><p>${date}</p></div>
             <div class="gen">
                 <p><img src="http://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}"> <span>${day.weather[0].description}</span></p>
             </div>
@@ -77,6 +80,7 @@ function updateCityDetails(city, currentData, forecastData) {
         hourlyContainer.appendChild(tableHour);
     }
 }
+
 
 // Fetch weather data
 async function fetchWeather(city, card = null) {
