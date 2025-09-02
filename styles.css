@@ -1,5 +1,8 @@
 /* General */
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+   font-family: "Poppins", sans-serif;
+}
 :root{
     --primary-color: #fca311;
     --secondary-color: #1c2333;
@@ -53,7 +56,7 @@ body {
   .sidebar nav ul li.active,
   .sidebar nav ul li:hover {
     opacity: 1;
-    color: #00bfff;
+    color: #ffa200;
   }
   
   /* Main Content */
@@ -84,13 +87,13 @@ body {
     padding: 12px 20px;
     border: none;
     border-radius: 0 10px 10px 0;
-    background: #00bfff;
+    background: #ffa200;
     color: #fff;
     cursor: pointer;
   }
   
   .search-bar button:hover {
-    background: #009acd;
+    background: #ffa200;
   }
   
   /* Weather cards */
@@ -154,6 +157,8 @@ body {
     /* align-items: center; */
     height: 100vh;
     background-color: var(--background-color);
+    border-radius: 20px;
+    padding: 30px;
     gap: 40px;
   }
   .search_{
@@ -168,18 +173,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;  
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.364);
         
   }
   .table{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.364);
   }
   .today_forecast{
     margin-top: 50px;
   }
+  .forecast_details .meteo #title{
+    font-weight: 700;
+  }
+  .gen p {
+    display: flex;
+    align-items: center;   /* vertical center */
+    justify-content: flex-start; /* keep them left-aligned */
+    gap: 8px;              /* space between image and text */
+    margin: 0;             /* optional: remove default p margin */
+  }
+  
+  .gen img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  
   .today_forecast .table_hour{
     display: flex;
     justify-content: space-between;
@@ -187,7 +209,7 @@ body {
    
   }
   .today_forecast .table_hour .hour1,  .hour2{
-    border-right: 1px solid var(--text-color);
+    border-right: 1px solid rgba(255, 255, 255, 0.364);
     padding-right: 50px;
   }
   .sugested_cities{
