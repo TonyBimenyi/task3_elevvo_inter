@@ -106,7 +106,7 @@ async function fetchWeather(city, card = null) {
                 <p>${Math.round(currentData.main.temp)}°C</p>
                 <p>${currentData.weather[0].description}</p>
             `;
-            // ⛔ Removed forecast from searched city cards
+            // Removed forecast from searched city cards
         }
 
         return { currentData, forecastData };
@@ -179,7 +179,7 @@ if (navigator.geolocation) {
             const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`);
             const currentData = await currentRes.json();
             const city = currentData.name || 'Your Location';
-            createCityCard(city, true); // ✅ Mark my location
+            createCityCard(city, true); // Mark my location
         } catch (e) { console.error(e); }
         finally { weatherContainer.removeChild(loading); }
     });
